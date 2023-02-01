@@ -44,5 +44,40 @@ public class payload {
 				+ "}";
 
 	}
+	
+	public static String createEditorialCard(String brandedMoment)
+
+	{
+
+		return "{\r\n"
+				+ "    \"title\": \"AdsMaker\",\r\n"
+				+ "    \"sub_title\": \"AdsMaker\",\r\n"
+				+ "    \"description\": \"AdsMaker\",\r\n"
+				+ "    \"image_link\": \"AdsMaker\",\r\n"
+				+ "    \"avatar_link\": \"AdsMaker\",\r\n"
+				+ "    \"deep_link\": \"AdsMaker\",\r\n"
+				+ "    \"type\": \"AdsMaker\",\r\n"
+				+ "    \"trigger_type\": \"Immediate\",\r\n"
+				+ "    \"cta_text\": \"\",\r\n"
+				+ "    \"badge_text\": \"\",\r\n"
+				+ "    \"trackers\": [\r\n"
+				+ "        {\r\n"
+				+ "            \"tracker_type\": \"click\",\r\n"
+				+ "            \"tracker_urls\": []\r\n"
+				+ "        },\r\n"
+				+ "        {\r\n"
+				+ "            \"tracker_type\": \"impressions\",\r\n"
+				+ "            \"tracker_urls\": []\r\n"
+				+ "        },\r\n"
+				+ "        {\r\n"
+				+ "            \"tracker_type\": \"interaction\",\r\n"
+				+ "            \"tracker_urls\": []\r\n"
+				+ "        }\r\n"
+				+ "    ],\r\n"
+				+ "    \"identifier\": \""+brandedMoment+"\",\r\n"
+				+ "    \"label\": \"test bm\"\r\n"
+				+ "}";
+
+	}
 
 }

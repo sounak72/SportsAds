@@ -39,6 +39,10 @@ public class Espncricinfo {
 				 map.put("seriesId", seriesId);
 				 
 				 System.out.println("Match Live: " + matchSlug);
+				 if (matchSlug.equalsIgnoreCase("india-vs-new-zealand-2nd-t20i"))
+				 {
+					 break;
+				 }
 //				 break;
 			 }
 		  }

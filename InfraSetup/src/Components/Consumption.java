@@ -28,14 +28,13 @@ public class Consumption {
 		
 		
 		try {
-			
+//			System.out.println(payload.createMMatch(contentId, matchId,SeriedId, matchTitle));
 			System.out.println("*****Creationg an entry in the consumption portal for contentId:" + contentId + " matchtitle:" + matchTitle +" matchId:" + matchId + " SeriesId:" + SeriedId + "*****");
 			String response=given().relaxedHTTPSValidation().header("Content-Type","application/json")
 			.header("X-HS-IAuth", "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MjQ1ODY1NjAsImp0aSI6ImVlNGQxMjVhLTQxMjAtNDIzOS1iOGNmLTg3NDllYjU4NzQ2ZSIsImlhdCI6MTY2NTM4NjU1OCwibmJmIjoxNjY1Mzg2NTU4LCJzdWJqZWN0X2lkIjoic2h1by5saW5AaG90c3Rhci5jb20ifQ._eveJXqIu5DxN1L3FE2DJi9-NMSUvZ2ctDxSbxksFkAJ8mEUJ_vMBmWH6araBhrp05OrlIlztHrkj_SN1ee0KA")
 			.header("X-HS-IAuth-UserID", "shuo.lin@hotstar.com")
 			.body(payload.createMMatch(contentId, matchId,SeriedId, matchTitle)).when().post("/v1/events/matches")
 			.then().assertThat().statusCode(200).extract().response().asString();
-
 			JsonPath js=new JsonPath(response); //for parsing Json	
 			
 			int eventId = js.getInt("event_id");
@@ -82,13 +81,14 @@ public class Consumption {
 		
 		String response=given().relaxedHTTPSValidation().header("Content-Type","application/json")
 				.queryParam("status", "Ongoing")
+				.queryParam("limit", 1000)
 				.headers(headerMap)
 //				.header("X-HS-IAuth", "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MjQ1ODY1NjAsImp0aSI6ImVlNGQxMjVhLTQxMjAtNDIzOS1iOGNmLTg3NDllYjU4NzQ2ZSIsImlhdCI6MTY2NTM4NjU1OCwibmJmIjoxNjY1Mzg2NTU4LCJzdWJqZWN0X2lkIjoic2h1by5saW5AaG90c3Rhci5jb20ifQ._eveJXqIu5DxN1L3FE2DJi9-NMSUvZ2ctDxSbxksFkAJ8mEUJ_vMBmWH6araBhrp05OrlIlztHrkj_SN1ee0KA")
 //				.header("X-HS-IAuth-UserID", "shuo.lin@hotstar.com")
 				.when().get("/sports/v1/events/matches")
 				.then().assertThat().statusCode(200).extract().response().asString();
 		
-
+		System.out.println(response.toString());
 		JsonPath js=new JsonPath(response); 
 		
 		
@@ -137,6 +137,23 @@ public class Consumption {
 				.then().assertThat().statusCode(200).extract().response().asString();
 		
 		System.out.println("Event id:" +eventId + " deleted successfully"  );
+		
+	}
+	
+	public static void addEditorialCard(int eventId, String editorialCard )
+	{
+		RestAssured.baseURI= "https://origin-consumption-portal-pp.mum.hotstar-labs.com";
+		
+		System.out.println("*****Adding editorial card content with eventId:"+ eventId + "*****");
+		String response=given().relaxedHTTPSValidation().header("Content-Type","application/json")
+				.header("X-HS-IAuth", "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MjQ1ODY1NjAsImp0aSI6ImVlNGQxMjVhLTQxMjAtNDIzOS1iOGNmLTg3NDllYjU4NzQ2ZSIsImlhdCI6MTY2NTM4NjU1OCwibmJmIjoxNjY1Mzg2NTU4LCJzdWJqZWN0X2lkIjoic2h1by5saW5AaG90c3Rhci5jb20ifQ._eveJXqIu5DxN1L3FE2DJi9-NMSUvZ2ctDxSbxksFkAJ8mEUJ_vMBmWH6araBhrp05OrlIlztHrkj_SN1ee0KA")
+				.header("X-HS-IAuth-UserID", "shuo.lin@hotstar.com")
+				.body(payload.createEditorialCard(editorialCard))
+				.when()
+				.post("sports/v1/events/matches/"+eventId+"/editorial_card")
+				.then().assertThat().statusCode(200).extract().response().asString();
+		
+		System.out.println("Editorial card:" +editorialCard + " added successfully"  );
 		
 	}
 	
